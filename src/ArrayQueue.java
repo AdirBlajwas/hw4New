@@ -1,10 +1,12 @@
 //import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 public class ArrayQueue<E extends Cloneable> implements Queue<E>{
 
     Cloneable[] arrayQueue ;
-    Integer counter = new Integer(0);
+    int counter = 0;
     int capacity;
     ArrayPointer head;
     ArrayPointer rear;
@@ -17,7 +19,7 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
         this.arrayQueue = new Cloneable[maxCapacity];
         this.head = new ArrayPointer(this.capacity);
         this.rear = new ArrayPointer(this.capacity);
-        this.it = Arrays.stream(arrayQueue).iterator();
+        this.it = this.iterator();
     }
 
 
@@ -47,12 +49,17 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
         return (E) this.arrayQueue[this.head.getLoc()];
     }
 
+    private E getElement(ArrayPointer position){
+        return (E) this.arrayQueue[position.getLoc()];
+    }
+
     public int size(){
         return Math.abs(this.head.getLoc() - this.rear.getLoc());
     }
     public boolean isEmpty(){
         return counter == 0;
     }
+
     public Queue<E> clone(){
         ArrayQueue<E> clonedQueue = new ArrayQueue<E>(this.capacity);
         clonedQueue.arrayQueue = this.arrayQueue.clone();
@@ -60,6 +67,48 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
         clonedQueue.head = this.head.clone();
         clonedQueue.rear = this.rear.clone();
         return clonedQueue;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new ArrayQueueIterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super E> action) {
+        Queue.super.forEach(action);
+    }
+
+    @Override
+    public Spliterator<E> spliterator() {
+        return Queue.super.spliterator();
+    }
+
+
+    public class ArrayQueueIterator implements Iterator<E>{
+        ArrayPointer position;
+        int itrCounter = 0;
+        E element;
+
+        public ArrayQueueIterator(){
+            this.position = head;
+            element = getElement(position);
+        }
+
+        public boolean hasNext(){
+            return itrCounter < counter;
+        }
+
+        public E next(){
+            itrCounter++;
+            this.position.advancePointer();
+            this.element = getElement(position);
+            return this.element;
+        }
+
+        
+
+
     }
 
 }

@@ -1,6 +1,6 @@
 import java.util.Calendar;
 import java.util.Date;
-hiii
+
 class MyCloneable implements Cloneable {
     private int num;
 
