@@ -25,7 +25,9 @@ public class ArrayPointer implements Cloneable{
         this.loc++;
     }
 
-    public ArrayPointer clone(){
-    return new ArrayPointer(this.loc);
+    @Override
+    public ArrayPointer clone() throws CloneNotSupportedException
+    {
+    return (ArrayPointer) super.clone();
     }
 }

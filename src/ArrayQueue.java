@@ -10,7 +10,7 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
     int capacity;
     ArrayPointer head;
     ArrayPointer rear;
-    Iterator<E> it;
+//    Iterator<E> it;
 
     public ArrayQueue(int maxCapacity){
         if(maxCapacity < 0)
@@ -19,7 +19,7 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
         this.arrayQueue = new Cloneable[maxCapacity];
         this.head = new ArrayPointer(this.capacity);
         this.rear = new ArrayPointer(this.capacity);
-        this.it = this.iterator();
+//        this.it = this.iterator();
     }
 
 
@@ -54,19 +54,26 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
     }
 
     public int size(){
-        return Math.abs(this.head.getLoc() - this.rear.getLoc());
+        return this.counter;
     }
     public boolean isEmpty(){
         return counter == 0;
     }
 
-    public Queue<E> clone(){
-        ArrayQueue<E> clonedQueue = new ArrayQueue<E>(this.capacity);
-        clonedQueue.arrayQueue = this.arrayQueue.clone();
-        clonedQueue.counter = this.counter;
-        clonedQueue.head = this.head.clone();
-        clonedQueue.rear = this.rear.clone();
+    @Override
+    public ArrayQueue<E> clone(){
+        try {
+            ArrayQueue<E> clonedQueue = (ArrayQueue<E>) super.clone();
+            clonedQueue.arrayQueue = this.arrayQueue.clone();
+            clonedQueue.head = this.head.clone();
+            clonedQueue.rear = this.rear.clone();
         return clonedQueue;
+        }
+        catch(CloneNotSupportedException e)
+        {
+            return null;
+        }
+
     }
 
     @Override
