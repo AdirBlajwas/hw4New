@@ -1,9 +1,10 @@
 //import java.util.Arrays;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-public class ArrayQueue<E extends Cloneable> implements Queue<E>{
+public class ArrayQueue<E extends Cloneable> implements Queue<E>, Iterable<E>{
 
     Cloneable[] arrayQueue ;
     int counter = 0;
@@ -28,10 +29,11 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
        {
            throw new QueueOverflowException();
        }
-       this.rear.advancePointer();
        this.arrayQueue[this.rear.getLoc()] = element;
+       this.rear.advancePointer();
        this.counter++;
     }
+
 
     public E dequeue(){
         if(this.isEmpty())
@@ -64,12 +66,18 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
     public ArrayQueue<E> clone(){
         try {
             ArrayQueue<E> clonedQueue = (ArrayQueue<E>) super.clone();
-            clonedQueue.arrayQueue = this.arrayQueue.clone();
+//            clonedQueue.arrayQueue = this.arrayQueue.clone();
+            clonedQueue.arrayQueue = new Cloneable[this.capacity];
+            for(int i = 0; i < this.capacity ; i++){
+                clonedQueue.arrayQueue[i]= (Cloneable) this.arrayQueue[i].getClass()
+                        .getMethod("clone").invoke(this.arrayQueue[i]);
+            }
             clonedQueue.head = this.head.clone();
             clonedQueue.rear = this.rear.clone();
         return clonedQueue;
         }
-        catch(CloneNotSupportedException e)
+        catch(CloneNotSupportedException | NoSuchMethodException
+                | InvocationTargetException| IllegalAccessException e)
         {
             return null;
         }
@@ -81,15 +89,15 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
         return new ArrayQueueIterator();
     }
 
-    @Override
-    public void forEach(Consumer<? super E> action) {
-        Queue.super.forEach(action);
-    }
-
-    @Override
-    public Spliterator<E> spliterator() {
-        return Queue.super.spliterator();
-    }
+//    @Override
+//    public void forEach(Consumer<? super E> action) {
+//        Queue.super.forEach(action);
+//    }
+//
+//    @Override
+//    public Spliterator<E> spliterator() {
+//        return Queue.super.spliterator();
+//    }
 
 
     public class ArrayQueueIterator implements Iterator<E>{
@@ -98,7 +106,7 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
         E element;
 
         public ArrayQueueIterator(){
-            this.position = head;
+            this.position = head.clone();
             element = getElement(position);
         }
 
@@ -108,8 +116,8 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>{
 
         public E next(){
             itrCounter++;
-            this.position.advancePointer();
             this.element = getElement(position);
+            this.position.advancePointer();
             return this.element;
         }
 

@@ -34,7 +34,19 @@ class MyCloneable implements Cloneable {
 public class Main {
     public static void main(String[] args) {
         testPartA();
+//        myTest();
 //        testPartB();
+    }
+
+
+
+    public static void myTest(){
+        ArrayQueue<MyCloneable> q1 = new ArrayQueue<>(5);
+        for(int i =0 ; i< 5; i++)
+            q1.enqueue(new MyCloneable(i));
+        for(MyCloneable element : q1){
+            System.out.println(element);
+        }
     }
 
     /**

@@ -26,8 +26,10 @@ public class ArrayPointer implements Cloneable{
     }
 
     @Override
-    public ArrayPointer clone() throws CloneNotSupportedException
-    {
-    return (ArrayPointer) super.clone();
+    public ArrayPointer clone() /*throws CloneNotSupportedException*/ {
+        try {
+            return (ArrayPointer) super.clone();
+        } catch (CloneNotSupportedException e) {return null;
+        }
     }
 }
