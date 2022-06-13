@@ -69,6 +69,7 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>, Iterable<E>{
 //            clonedQueue.arrayQueue = this.arrayQueue.clone();
             clonedQueue.arrayQueue = new Cloneable[this.capacity];
             for(int i = 0; i < this.capacity ; i++){
+                if(this.arrayQueue[i] == null) continue;
                 clonedQueue.arrayQueue[i]= (Cloneable) this.arrayQueue[i].getClass()
                         .getMethod("clone").invoke(this.arrayQueue[i]);
             }
@@ -102,13 +103,15 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>, Iterable<E>{
 
     public class ArrayQueueIterator implements Iterator<E>{
         ArrayPointer position;
+//        int cursor = 0;
         int itrCounter = 0;
-        E element;
+//        E element;
 
         public ArrayQueueIterator(){
             this.position = head.clone();
-            element = getElement(position);
+//            element = getElement(position);
         }
+
 
         public boolean hasNext(){
             return itrCounter < counter;
@@ -116,9 +119,9 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>, Iterable<E>{
 
         public E next(){
             itrCounter++;
-            this.element = getElement(position);
+            E element = getElement(position);
             this.position.advancePointer();
-            return this.element;
+            return element;
         }
 
         

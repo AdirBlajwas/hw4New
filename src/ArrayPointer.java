@@ -22,7 +22,7 @@ public class ArrayPointer implements Cloneable{
     public void advancePointer(){
         if(this.loc == this.capacity-1)
             this.loc = 0;
-        this.loc++;
+        else this.loc++;
     }
 
     @Override
