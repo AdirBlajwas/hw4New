@@ -1,6 +1,7 @@
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Vector;
+import java.util.HashMap;
+
 
 class MyCloneable implements Cloneable {
     private int num;
@@ -34,37 +35,24 @@ class MyCloneable implements Cloneable {
 
 public class Main {
     public static void main(String[] args) {
-        testPartA();
-//        myTest();
+//        testPartA();
+        myTest();
 //        testPartB();
     }
 
 
 
     public static void myTest(){
-        ArrayQueue<MyCloneable> q1 = new ArrayQueue<>(5);
-        MyCloneable c1 = new MyCloneable(15);
-            q1.enqueue(new MyCloneable(0));
-            q1.enqueue(c1);
-            q1.enqueue(new MyCloneable(2));
-            q1.enqueue(new MyCloneable(3));
-            q1.enqueue(new MyCloneable(4));
-            q1.dequeue();
-            q1.enqueue(new MyCloneable(5));
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        Date d1 = new Date(2022 - 1900, Calendar.JUNE,31);
+        Task t1 = new Task("Shit",d1);
+        System.out.println(t1);
+        int s1 = new String("hey").hashCode();
 
-//        for(int i =1 ; i<= 15; i++)
-//            q1.enqueue(new MyCloneable(i));
-//
-//        for(int j =0 ; j<4; j++){
-//            q1.dequeue();
-//        }
-//        ArrayQueue<MyCloneable> q2 = q1.clone();
-        for(MyCloneable element : q1){
-            System.out.println(element);
         }
 
 
-    }
+
 
     /**
      * Tests for part A.

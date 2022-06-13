@@ -51,7 +51,7 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>, Iterable<E>{
         return (E) this.arrayQueue[this.head.getLoc()];
     }
 
-    private E getElement(ArrayPointer position){
+    public E getElement(ArrayPointer position){
         return (E) this.arrayQueue[position.getLoc()];
     }
 
@@ -87,46 +87,16 @@ public class ArrayQueue<E extends Cloneable> implements Queue<E>, Iterable<E>{
 
     @Override
     public Iterator<E> iterator() {
-        return new ArrayQueueIterator();
+        return new ArrayQueueIterator(this);
     }
 
-//    @Override
-//    public void forEach(Consumer<? super E> action) {
-//        Queue.super.forEach(action);
-//    }
-//
-//    @Override
-//    public Spliterator<E> spliterator() {
-//        return Queue.super.spliterator();
-//    }
-
-
-    public class ArrayQueueIterator implements Iterator<E>{
-        ArrayPointer position;
-//        int cursor = 0;
-        int itrCounter = 0;
-//        E element;
-
-        public ArrayQueueIterator(){
-            this.position = head.clone();
-//            element = getElement(position);
-        }
-
-
-        public boolean hasNext(){
-            return itrCounter < counter;
-        }
-
-        public E next(){
-            itrCounter++;
-            E element = getElement(position);
-            this.position.advancePointer();
-            return element;
-        }
-
-        
-
-
+    public int getCounter() {
+        return counter;
     }
+
+    public ArrayPointer getHead() {
+        return head;
+    }
+
 
 }
