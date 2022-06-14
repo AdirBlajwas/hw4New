@@ -1,5 +1,13 @@
 public class QueueOverflowException extends QueueException{
-    public QueueOverflowException(){
-        super("The Queue is full!");
+    public QueueOverflowException(){}
+    public QueueOverflowException(String message){
+        super(message);
     }
+    public QueueOverflowException(String message, Throwable e){
+        super(message,e);
+    }
+    
+
+
+
 }

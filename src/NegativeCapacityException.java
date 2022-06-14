@@ -1,8 +1,9 @@
 public class NegativeCapacityException extends QueueException{
+    NegativeCapacityException(){}
     NegativeCapacityException(String message){
         super(message);
     }
-    NegativeCapacityException(){
-        super("Negative size of a queue is not allowed!");
+    public NegativeCapacityException(String message, Throwable e){
+        super(message,e);
     }
 }

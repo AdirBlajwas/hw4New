@@ -5,31 +5,32 @@ import java.util.Objects;
 
 public class Task implements Comparable, Cloneable{
     private final String description;
-    private Date date;
+    private Date dueDate;
 
     public Task(String description, Date date) {
         this.description = description;
-        this.date = date;
+        this.dueDate = dueDate  ;
     }
 
     @Override
     public String toString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate= formatter.format(date);
-        return  description + ", " + strDate;
+        String strDate= formatter.format(dueDate  );
+        return  "(" + description + ", " + strDate + ")";
     }
 
-//    public Date getDate() {
-//        return date;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
+
+    public String getDescription() {
+        return description;
+    }
 
 
-    public void setDate(Date date) {
-        this.date = date;
+    public Date getdueDate  () {
+        return dueDate  ;
+    }
+
+    public void setdueDate  (Date dueDate  ) {
+        this.dueDate   = dueDate  ;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Task implements Comparable, Cloneable{
         }
         if(o == this) return true;
 //        return o.hashCode() == this.hashCode();
-        return this.date.equals(((Task) o).date) && this.description.equals((((Task) o).description));
+        return this.dueDate  .equals(((Task) o).dueDate  ) && this.description.equals((((Task) o).description));
     }
 
 
@@ -51,7 +52,7 @@ public class Task implements Comparable, Cloneable{
     @Override
     public int compareTo(Object o) {
         Task t1 = (Task) o;
-        int dateCompare = this.date.compareTo(t1.date);
+        int dateCompare = this.dueDate  .compareTo(t1.dueDate  );
         if(dateCompare != 0) return dateCompare;
         return this.description.compareTo(t1.description);
     }
@@ -60,7 +61,7 @@ public class Task implements Comparable, Cloneable{
     public Task clone(){
         try {
         Task clone = (Task) super.clone();
-        clone.date = (Date) this.date.clone();
+        clone.dueDate   = (Date) this.dueDate  .clone();
         return clone;
         } catch (CloneNotSupportedException e){
             return null;
