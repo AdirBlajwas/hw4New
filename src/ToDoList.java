@@ -3,7 +3,7 @@ import java.util.*;
 public class ToDoList implements TaskIterable, Cloneable {
     private ArrayList<Task> taskList;
     private Date ScanningDueDate;
-    private static final Comparator<Task> taskComparator = Comparator.comparing(Task::getdueDate,Date::compareTo)
+    private static final Comparator<Task> taskComparator = Comparator.comparing(Task::getDueDate,Date::compareTo)
             .thenComparing(Task::getDescription);
 
 
@@ -16,7 +16,7 @@ public class ToDoList implements TaskIterable, Cloneable {
     public void addTask(Task newTask) {
         for (Task task : this.taskList) {
             if (newTask.equals(task)) {
-                return;
+                throw new TaskAlreadyExistsException();
             }
         }
         this.taskList.add(newTask);

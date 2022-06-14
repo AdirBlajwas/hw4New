@@ -13,7 +13,7 @@ public class ToDoListIterator implements Iterator<Task> {
 
 
     public ToDoListIterator(ToDoList list, Date scanDateLimit) {
-        taskComparator = Comparator.comparing(Task::getdueDate,Date::compareTo).thenComparing(Task::getDescription);
+        taskComparator = Comparator.comparing(Task::getDueDate,Date::compareTo).thenComparing(Task::getDescription);
         ToDoList cloned = list.clone();
         this.sortedList = cloned.getTaskList();
         Collections.sort(sortedList,taskComparator);
@@ -31,7 +31,7 @@ public class ToDoListIterator implements Iterator<Task> {
     public boolean hasNext() {
         if(!cursor.hasNext()) return false;
         if(this.scanDateLimit != null)
-            return (this.scanDateLimit.compareTo(sortedList.get(counter+1).getdueDate()) != IS_LARGER);
+            return (this.scanDateLimit.compareTo(sortedList.get(counter+1).getDueDate()) != IS_LARGER);
         return true;
     }
 

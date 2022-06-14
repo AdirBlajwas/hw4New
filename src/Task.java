@@ -25,22 +25,22 @@ public class Task implements Comparable, Cloneable{
     }
 
 
-    public Date getdueDate  () {
+    public Date getDueDate  () {
         return dueDate  ;
     }
 
-    public void setdueDate  (Date dueDate  ) {
+    public void setDueDate(Date dueDate  ) {
         this.dueDate   = dueDate  ;
     }
 
     @Override
     public boolean equals(Object o) {
+        if(o == this) return true;
         if(!(o instanceof Task)){
             return false;
         }
-        if(o == this) return true;
-//        return o.hashCode() == this.hashCode();
-        return this.dueDate  .equals(((Task) o).dueDate  ) && this.description.equals((((Task) o).description));
+        Task task = (Task) o;
+        return this.dueDate.equals(task.dueDate) && this.description.equals(task.description);
     }
 
 
