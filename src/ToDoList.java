@@ -70,6 +70,18 @@ public class ToDoList implements TaskIterable, Cloneable {
         return Objects.hash(cloned.taskList);
     }
 
+    @Override
+    public String toString() {
+        String str = "[";
+        boolean isEmpty = false;
+        if(this.taskList.isEmpty()) return "[]";
+        for(Task task : this.taskList){
+            str = str + task.toString() + ", ";
+        }
+        return str.substring(0,str.length()-2) + "]";
+    }
+
+
     public Iterator<Task> iterator(){
         return new ToDoListIterator(this);
     }

@@ -7,9 +7,9 @@ public class Task implements Comparable, Cloneable{
     private final String description;
     private Date dueDate;
 
-    public Task(String description, Date date) {
+    public Task(String description, Date dueDate) {
         this.description = description;
-        this.dueDate = dueDate  ;
+        this.dueDate = dueDate;
     }
 
     @Override
